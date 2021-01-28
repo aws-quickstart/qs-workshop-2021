@@ -1,0 +1,18 @@
+The first step in modifying a Quick Start is to ensure you have an IDE available for working on the Quick Start components. AWS Cloud9 is a cloud-based IDE that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal.
+
+1. Open the https://console.aws.amazon.com/cloud9/home?region=us-east-1#[AWS Cloud9 console].
+2. From the Region selection list in the top-right corner, make sure you are in the us-east-1 (N. Virginia) Region.
+3. Click *Create environment*
+4. Enter a name for your environment and click *Next step*
+
+[#cloud9_1]
+.Creating a Cloud9 IDE
+image::../images/image1.png[cloud9,width=75%,height=75%]
+
+[start=5]
+5. Select an instance type. _If you are using your own account and want to avoid incurring any charges, keep the default instance type, which is https://aws.amazon.com/free/[AWS Free Tier] eligible_
+6. Change the cost-saving setting to *After four hours* to ensure your IDE isn't shut down due to inactivity
+7. Leave all other fields at their default values and click *Next step*
+8. Click *Create environment*
+
+The Cloud9 IDE will be created after a few minutes.

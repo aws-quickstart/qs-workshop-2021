@@ -1,0 +1,11 @@
+While the Cloud9 IDE is being created, you can go ahead and create a _fork_ of the workshop's GitHub repository in your own account. A fork is just an exact replica of the *aws-quickstart/qs-workshop-2021* GitHub repository that resides in your GitHub account.
+
+1. Log into GitHub
+2. Navigate to https://github.com/aws-quickstart/qs-workshop-2021[the aws-quickstart/qs-workshop-2021 repository]
+3. Click *Fork* in the top-right corner
+
+[#fork1]
+.Forking a GitHub repository
+image::../images/image2.png[fork,width=25%,height=25%]
+
+That's it! A copy of the repository should now be hosted in your GitHub account.

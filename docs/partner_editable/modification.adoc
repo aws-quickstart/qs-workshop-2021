@@ -1,0 +1,28 @@
+Now that you've verified that your forked code works as intended, you can modify the code to fit your use case. The Quick Start contains two templates: a _main_ template and a _workload_ template. The _main_ template is a parent template, it deploys other templates in sequence: VPC, workload, and Remote Desktop Gateway or Linux Bastion. The _workload_ template deploys the actual Quick Start workload: the auto-scaling web server group and the load balancer. AWS customers and Partners can make whatever changes they want to either of these templates to suit their own use cases.
+
+1. From the folder view, double-click on the file *templates/workshop.template.yaml*
+
+[#modification1]
+.Expanded folder view
+image::../images/image8.png[modification,width=50%,height=50%]
+
+[start=2]
+2. You should now be able to view and modify the template. Here we'll go over the different template sections.
+
+* The first line is *AWSTemplateFormatVersion*. As of right now all CloudFormation templates have the value '2010-09-09'.
+* The second section is the description, which is simply a textual description of what the template does.
+* Next we have the template *Metadata*.
+** The first bit of metadata is the CloudFormation interface. This describes how the CloudForamtion console will look to the end customer when the template is launched.
+*** *ParameterGroups* describe how the parameters should be grouped in the CloudFormation console.
+*** *ParameterLabels* apply descriptive labels to the parameters in the CloudFormation console.
+* Next is the *Parameters* section. All of the parameters used to launch the template are here, along with parameter descriptions, restrictions, types, and default values where applicable.
+* *Rules* ensure the template has parameter values that won't cause it to fail.
+* *Mappings* ensure Region-specific Amazon Machine Images (AMIs) are used for the EC2 instances.
+* *Conditions* are statements that are true if they meet certain conditions. In this case, the condition _UsingDefaultBucket_ is true if the _QSS3BucketName_ parameter value is "aws-quickstart".
+* *Resources* are the actual assets deployed to a customer account. Resources deployed by this tempalte include a Simple Notification Service (SNS) topic, EC2 security groups, an elastic load balancer, IAM roles, an auto-scaling group launch configuration, an auto-scaling group, CloudWatch alarms, and an S3 bucket.
+* *Outputs* are presented to the customer after the template has completed deploying, such as the fully-qualified domain name used to access a web application.
+
+[start=3]
+3. Make a change to the template. For a very basic example, imagine a published Quick Start only supports T2 EC2 instances, but a customer wants to deploy a T3 EC2 instance. In this case, we could add *_t3.large_* to the list of allowed values for the instnace type parameter. In the case of this workshop, we can add *_t3.large_* at line 130 of the workload template.
+4. Save the updated template.
+5. To ensure the modified template builds successfully, we can run *_taskcat test run -l_* from the root of the repository in our IDE.

@@ -1,0 +1,4 @@
+We now have a customized Quick Start, and we need to make it available to deploy from the AWS CloudFormation console. To do this, we will create an S3 bucket and upload the contents of our local repository to this bucket.
+
+1. Create a new S3 bucket. S3 bucket names must be unique _across all of AWS_, not just within your account, so come up with something unique. Run the command *_aws s3 mb s3://<yourbucketname> --region us-east-1_*
+2. Upload the contents of the repository to the new S3 bucket. From the root of the repository run the command *_aws s3 cp ./ s3://<yourbucketname>/qs-workshop-2021 --recursive_*

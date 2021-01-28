@@ -1,0 +1,4 @@
+Now that we have modified the Quick Start template in our local IDE, we need to push that change back to our forked repository in our GitHub account.
+
+1. From the root of the repository in your IDE, add a _commit_ message that describes the change that was made. If support for T3 EC2 instances was added as in the example above, run the command *_git commit -a -m "Adding support for t3.large instance"_*
+2. Run *_git push_* to _push_ the changes up to the GitHub repository.

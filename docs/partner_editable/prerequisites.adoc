@@ -1,0 +1,6 @@
+In order to successfully complete this workshop, you will need:
+
+* An AWS account
+** _If you are attending a guided workshop hosted by AWS, a temporary account may be provided as part of the workshop_
+* A GitHub account
+** _You can sign up for a GitHub account at https://github.com/[GitHub.com]. It is free and only requires a valid email address for verification._

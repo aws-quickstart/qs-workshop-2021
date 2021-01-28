@@ -1,0 +1,1 @@
+In this workshop, you will learn about the AWS Quick Start program, how to modify existing Quick Starts to fit your unique use cases, and deploy modified Quick Starts into your (or your customer's) AWS account from your own Simple Storage Service (S3) bucket.
