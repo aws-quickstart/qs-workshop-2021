@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <title>Quick Start enablement workshop</title>
 <style>
 
@@ -810,7 +810,13 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_testing_cloudformation_with_taskcat">Testing CloudFormation with TaskCat</a></li>
 </ul>
 </li>
-<li><a href="#_modifying_the_quick_start">Modifying the Quick Start</a></li>
+<li><a href="#_modifying_the_quick_start">Modifying the Quick Start</a>
+<ul class="sectlevel2">
+<li><a href="#_viewing_the_cloudformation_sections">Viewing the CloudFormation sections</a></li>
+<li><a href="#_updating_the_ami_region_map_and_ec2_image_id">Updating the AMI Region map and EC2 image ID</a></li>
+<li><a href="#_updating_the_ec2_userdata">Updating the EC2 userdata</a></li>
+</ul>
+</li>
 <li><a href="#_pushing_changes_to_github">Pushing Changes to GitHub</a></li>
 <li><a href="#_uploading_assets_to_s3">Uploading Assets to S3</a></li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
@@ -1276,6 +1282,8 @@ tests:
 <div class="sect1">
 <h2 id="_modifying_the_quick_start">Modifying the Quick Start</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_viewing_the_cloudformation_sections">Viewing the CloudFormation sections</h3>
 <div class="paragraph">
 <p>Now that you&#8217;ve verified that your forked code works as intended, you can modify the code to fit your use case. The Quick Start contains two templates: a <em>main</em> template and a <em>workload</em> template. The <em>main</em> template is a parent template, it deploys other templates in sequence: VPC, workload, and Remote Desktop Gateway or Linux Bastion. The <em>workload</em> template deploys the actual Quick Start workload: the auto-scaling web server group and the load balancer. AWS customers and Partners can make whatever changes they want to either of these templates to suit their own use cases.</p>
 </div>
@@ -1350,15 +1358,256 @@ tests:
 <div class="olist arabic">
 <ol class="arabic" start="3">
 <li>
-<p>Make a change to the template. For a very basic example, imagine a published Quick Start only supports T2 EC2 instances, but a customer wants to deploy a T3 EC2 instance. In this case, we could add <strong><em>t3.large</em></strong> to the list of allowed values for the instnace type parameter. In the case of this workshop, we can add <strong><em>t3.large</em></strong> at line 130 of the workload template.</p>
-</li>
-<li>
-<p>Save the updated template.</p>
-</li>
-<li>
-<p>To ensure the modified template builds successfully, we can run <strong><em>taskcat test run -l</em></strong> from the root of the repository in our IDE.</p>
+<p>We will now make some very basic modifications to the template: we will update the EC2 image ID to use Amazon Linux 2 (as opposed to Amazon Linux), and we will update the EC2 instance userdata to deploy a basic website.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_updating_the_ami_region_map_and_ec2_image_id">Updating the AMI Region map and EC2 image ID</h3>
+<div class="paragraph">
+<p>The AMI Region map can be found in <strong>templates/workshop.template.yaml</strong> at lines 187-217. This is the area of the template used to ensure the workload instances are use the correct AMI ID for the Region into which the template is being deployed. As you can see, this template supports only Amazon Linux (not Amazon Linux 2, or Ubunto, or CentOS, etc.). By replacing the Region mappings with additional mappings for additional flavors of Linux, and by adding support for additional Regions, we can add flexibility to the Quick Start. Replace the mappings with the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  AWSAMIRegionMap:
+    af-south-1:
+      AMZNLINUX2: ami-0936d2754993c364e
+      AMZNLINUX2ARM: ami-01d326fa7db123542
+      US2004HVM: ami-022666956ad401a16
+      CENTOS7HVM: ami-0a2be7731769e6cc1
+#      SLES15HVM: ami-EXAMPLE
+    ap-northeast-1:
+      AMZNLINUX2: ami-0ca38c7440de1749a
+      AMZNLINUX2ARM: ami-005322a6d5cecfe58
+      US2004HVM: ami-015f1a68ce825a8d2
+      CENTOS7HVM: ami-06a46da680048c8ae
+      SLES15HVM: ami-056ac8ad44e6a7e1f
+    ap-northeast-2:
+      AMZNLINUX2: ami-0f2c95e9fe3f8f80e
+      AMZNLINUX2ARM: ami-01b0796a552129792
+      US2004HVM: ami-0be9734c9e68b99f4
+      CENTOS7HVM: ami-06e83aceba2cb0907
+      SLES15HVM: ami-0f81fff879bafe6b8
+    ap-northeast-3:
+      AMZNLINUX2: ami-06e9ad0943b200859
+      AMZNLINUX2ARM: ami-02415340f44a47b93
+      US2004HVM: ami-01cb3e73f8ef13fdc
+      CENTOS7HVM: ami-02d6b455335e3af14
+      SLES15HVM: ami-0d8518dd12d11dfc2
+    ap-south-1:
+      AMZNLINUX2: ami-010aff33ed5991201
+      AMZNLINUX2ARM: ami-01ad94fdf8150776c
+      US2004HVM: ami-00aaac1f2ef4ce965
+      CENTOS7HVM: ami-026f33d38b6410e30
+      SLES15HVM: ami-01be89269d32f2a16
+    ap-southeast-1:
+      AMZNLINUX2: ami-02f26adf094f51167
+      AMZNLINUX2ARM: ami-006eccfc9e6f597af
+      US2004HVM: ami-0012ffabeb7413479
+      CENTOS7HVM: ami-07f65177cb990d65b
+      SLES15HVM: ami-070356c21596ddc67
+    ap-southeast-2:
+      AMZNLINUX2: ami-0186908e2fdeea8f3
+      AMZNLINUX2ARM: ami-00719b70b31680d14
+      US2004HVM: ami-03ec1fe05b3849c74
+      CENTOS7HVM: ami-0b2045146eb00b617
+      SLES15HVM: ami-0c4245381c67efb39
+    ca-central-1:
+      AMZNLINUX2: ami-0101734ab73bd9e15
+      AMZNLINUX2ARM: ami-039750f0a88733fff
+      US2004HVM: ami-04c56d394d31cdeac
+      CENTOS7HVM: ami-04a25c39dc7a8aebb
+      SLES15HVM: ami-0c97d9b588207dad6
+    eu-central-1:
+      AMZNLINUX2: ami-043097594a7df80ec
+      AMZNLINUX2ARM: ami-000cbb96a79217336
+      US2004HVM: ami-0980c5102b5ef10cc
+      CENTOS7HVM: ami-0e8286b71b81c3cc1
+      SLES15HVM: ami-05dfd265ea534a3e9
+    me-south-1:
+      AMZNLINUX2: ami-0880769bc15eeec4f
+      AMZNLINUX2ARM: ami-001dc219c441b922d
+      US2004HVM: ami-03cc0b5db8321f2e5
+      CENTOS7HVM: ami-011c71a894b10f35b
+      SLES15HVM: ami-0252c6d3a59c7473b
+    ap-east-1:
+      AMZNLINUX2: ami-0aca22cb23f122f27
+      AMZNLINUX2ARM: ami-01f5cec80321bd86e
+      US2004HVM: ami-0c7e5903bee96ef81
+      CENTOS7HVM: ami-0e5c29e6c87a9644f
+      SLES15HVM: ami-0ad6e15bcbb2dbe38
+    eu-north-1:
+      AMZNLINUX2: ami-050fdc53cf6ba8f7f
+      AMZNLINUX2ARM: ami-00a8ac2b5311cd613
+      US2004HVM: ami-0663a4867a210287a
+      CENTOS7HVM: ami-05788af9005ef9a93
+      SLES15HVM: ami-0741fa1a008af40ad
+    eu-south-1:
+      AMZNLINUX2: ami-0f447354763f0eaac
+      AMZNLINUX2ARM: ami-011d4067dedd119f5
+      US2004HVM: ami-035e213233577516f
+      CENTOS7HVM: ami-03014b98e9665115a
+      SLES15HVM: ami-051cbea0e7660063d
+    eu-west-1:
+      AMZNLINUX2: ami-063d4ab14480ac177
+      AMZNLINUX2ARM: ami-00552336fb4b81164
+      US2004HVM: ami-0213344887e47003a
+      CENTOS7HVM: ami-0b850cf02cc00fdc8
+      SLES15HVM: ami-0a58a1b152ba55f1d
+    eu-west-2:
+      AMZNLINUX2: ami-06dc09bb8854cbde3
+      AMZNLINUX2ARM: ami-03144ab666315a8a3
+      US2004HVM: ami-0add0a5a0cf9afc6c
+      CENTOS7HVM: ami-09e5afc68eed60ef4
+      SLES15HVM: ami-01497522185aaa4ee
+    eu-west-3:
+      AMZNLINUX2: ami-0b3e57ee3b63dd76b
+      AMZNLINUX2ARM: ami-009b1ed4d1f59029a
+      US2004HVM: ami-01019e7343a5f361d
+      CENTOS7HVM: ami-0cb72d2e599cffbf9
+      SLES15HVM: ami-0f238bd4c6fdbefb0
+    sa-east-1:
+      AMZNLINUX2: ami-05373777d08895384
+      AMZNLINUX2ARM: ami-0092271c8131fcde7
+      US2004HVM: ami-0312c74c38dc7bae6
+      CENTOS7HVM: ami-0b30f38d939dd4b54
+      SLES15HVM: ami-0772af912976aa692
+    us-east-1:
+      AMZNLINUX2: ami-0d5eff06f840b45e9
+      AMZNLINUX2ARM: ami-002cc39e7bf021a77
+      US2004HVM: ami-0db6c6238a40c0681
+      CENTOS7HVM: ami-0affd4508a5d2481b
+      SLES15HVM: ami-0b1764f3d7d2e2316
+    us-gov-west-1:
+      AMZNLINUX2: ami-0bbf3595bb2fb39ec
+      AMZNLINUX2ARM: ami-6bd0e80a
+      SLES15HVM: ami-57c0ba36
+    us-gov-east-1:
+      AMZNLINUX2: ami-0cc17d57bec8c6017
+      AMZNLINUX2ARM: ami-4a31d93b
+      SLES15HVM: ami-05e4bedfad53425e9
+    us-east-2:
+      AMZNLINUX2: ami-077e31c4939f6a2f3
+      AMZNLINUX2ARM: ami-0029d4ab5707ce922
+      US2004HVM: ami-03b6c8bd55e00d5ed
+      CENTOS7HVM: ami-01e36b7901e884a10
+      SLES15HVM: ami-05ea824317ffc0c20
+    us-west-1:
+      AMZNLINUX2: ami-04468e03c37242e1e
+      AMZNLINUX2ARM: ami-00872c48515f06ba0
+      US2004HVM: ami-0f5868930cb63c89c
+      CENTOS7HVM: ami-098f55b4287a885ba
+      SLES15HVM: ami-00e34a7624e5a7107
+    us-west-2:
+      AMZNLINUX2: ami-0cf6f5c8a62fa5da6
+      AMZNLINUX2ARM: ami-0043879194eb2ad40
+      US2004HVM: ami-038a0ccaaedae6406
+      CENTOS7HVM: ami-0bc06212a56393ee1
+      SLES15HVM: ami-0f1e3b3fb0fec0361
+    cn-north-1:
+      AMZNLINUX2: ami-0c52e2685c7218558
+      AMZNLINUX2ARM: ami-088cc0c104292da9c
+      CENTOS7HVM: ami-08c16f7e830c0e393
+      SLES15HVM: ami-021392849b6221a81
+    cn-northwest-1:
+      AMZNLINUX2: ami-05b9b6d6acf8ae9b6
+      AMZNLINUX2ARM: ami-0b5c6ceb80eb57861
+      CENTOS7HVM: ami-0f21aa96a61df8c44
+      SLES15HVM: ami-00e1de3ee6d0d28ea</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, we will need to update the ImageID used by the auto-scaling group. If you search for "ImageId", you will see that it is currently pointing to the old Amazon Linux mapping:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>      ImageId:
+        Fn::FindInMap:
+        - AWSAMIRegionMap
+        - Ref: AWS::Region
+        - AMZNLINUXHVM</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can update this to use Amazon Linux 2 from the new mappings, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>      ImageId:
+        Fn::FindInMap:
+        - AWSAMIRegionMap
+        - Ref: AWS::Region
+        - AMZNLINUX2</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_updating_the_ec2_userdata">Updating the EC2 userdata</h3>
+<div class="paragraph">
+<p>The userdata section of the auto scaling group launch config determines which commands should be executed when EC2 instances are launched. It currently looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        Fn::Base64:
+          Fn::Sub: |
+            #!/bin/bash
+            export PATH=$PATH:/usr/local/bin
+            which pip &amp;&gt; /dev/null
+            if [ $? -ne 0 ] ; then
+                echo "PIP NOT INSTALLED"
+                [ `which yum` ] &amp;&amp; $(yum install -y epel-release; yum install -y python-pip) &amp;&amp; echo "PIP INSTALLED"
+                [ `which apt-get` ] &amp;&amp; apt-get -y update &amp;&amp; apt-get -y install python-pip &amp;&amp; echo "PIP INSTALLED"
+            fi
+            pip install --upgrade pip &amp;&gt; /dev/null
+            pip install awscli --ignore-installed six &amp;&gt; /dev/null
+            easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+            cfn-init --stack ${AWS::StackName} --resource WorkloadASLaunchConfig --configsets quickstart --region ${AWS::Region}
+            # Signal the status from cfn-init
+            cfn-signal -e $? --stack ${AWS::StackName} --resource WorkloadAutoScalingGroup --region ${AWS::Region}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While the EC2 instances are deployed and cfn-init is run, the web servers don&#8217;t ever actually have a web server installed and started. By adding HTTPD installation and a basic index.html page, we can add an inital website to the Quick Start. Replace the userdata section with the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        Fn::Base64:
+          Fn::Sub: |
+            #!/bin/bash
+            export PATH=$PATH:/usr/local/bin
+            which pip &amp;&gt; /dev/null
+            if [ $? -ne 0 ] ; then
+                echo "PIP NOT INSTALLED"
+                [ `which yum` ] &amp;&amp; $(yum install -y epel-release; yum install -y python-pip) &amp;&amp; echo "PIP INSTALLED"
+                [ `which apt-get` ] &amp;&amp; apt-get -y update &amp;&amp; apt-get -y install python-pip &amp;&amp; echo "PIP INSTALLED"
+            fi
+            pip install --upgrade pip &amp;&gt; /dev/null
+            pip install awscli --ignore-installed six &amp;&gt; /dev/null
+            easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+            sudo yum update -y
+            sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+            sudo yum install -y httpd
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+            sudo usermod -a -G apache ec2-user
+            sudo chown -R ec2-user:apache /var/www
+            sudo chmod 2775 /var/www
+            find /var/www -type d -exec sudo chmod 2775 {} \;
+            find /var/www -type f -exec sudo chmod 0664 {} \;
+            cat &lt;&lt; EOF &gt; /var/www/html/index.html
+            &lt;body&gt;
+            Hello world!
+            &lt;/body&gt;
+            EOF
+            cfn-init --stack ${AWS::StackName} --resource WorkloadASLaunchConfig --configsets quickstart --region ${AWS::Region}
+            # Signal the status from cfn-init
+            cfn-signal -e $? --stack ${AWS::StackName} --resource WorkloadAutoScalingGroup --region ${AWS::Region}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, when the Quick Start is deployed, a basic HTML web page will be available at the load balancer URL.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1371,7 +1620,7 @@ tests:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>From the root of the repository in your IDE, add a <em>commit</em> message that describes the change that was made. If support for T3 EC2 instances was added as in the example above, run the command <strong><em>git commit -a -m "Adding support for t3.large instance"</em></strong></p>
+<p>From the root of the repository in your IDE, add a <em>commit</em> message that describes the change that was made. If support for T3 EC2 instances was added as in the example above, run the command <strong><em>git commit -a -m "Automating HTTPS installation and updating AMIs</em></strong></p>
 </li>
 <li>
 <p>Run <strong><em>git push</em></strong> to <em>push</em> the changes up to the GitHub repository.</p>
@@ -1428,7 +1677,7 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.10. -->
+<!-- Generated with Asciidoctor v2.0.15. -->
 <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates{partner-company-footer}. All rights reserved.
 </p>
 </body>

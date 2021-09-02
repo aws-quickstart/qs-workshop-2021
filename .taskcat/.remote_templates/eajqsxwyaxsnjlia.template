@@ -492,8 +492,6 @@ Resources:
             sudo yum update -y
             sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
             sudo yum install -y httpd
-            sudo systemctl start httpd
-            sudo systemctl enable httpd
             sudo usermod -a -G apache ec2-user
             sudo chown -R ec2-user:apache /var/www
             sudo chmod 2775 /var/www
@@ -504,7 +502,6 @@ Resources:
             Hello world!
             </body>
             EOF
-
             cfn-init --stack ${AWS::StackName} --resource WorkloadASLaunchConfig --configsets quickstart --region ${AWS::Region}
             # Signal the status from cfn-init
             cfn-signal -e $? --stack ${AWS::StackName} --resource WorkloadAutoScalingGroup --region ${AWS::Region}

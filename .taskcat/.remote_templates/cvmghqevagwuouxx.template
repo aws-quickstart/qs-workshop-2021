@@ -489,22 +489,6 @@ Resources:
             pip install --upgrade pip &> /dev/null
             pip install awscli --ignore-installed six &> /dev/null
             easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
-            sudo yum update -y
-            sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-            sudo yum install -y httpd
-            sudo systemctl start httpd
-            sudo systemctl enable httpd
-            sudo usermod -a -G apache ec2-user
-            sudo chown -R ec2-user:apache /var/www
-            sudo chmod 2775 /var/www
-            find /var/www -type d -exec sudo chmod 2775 {} \;
-            find /var/www -type f -exec sudo chmod 0664 {} \;
-            cat << EOF > /var/www/html/index.html
-            <body>
-            Hello world!
-            </body>
-            EOF
-
             cfn-init --stack ${AWS::StackName} --resource WorkloadASLaunchConfig --configsets quickstart --region ${AWS::Region}
             # Signal the status from cfn-init
             cfn-signal -e $? --stack ${AWS::StackName} --resource WorkloadAutoScalingGroup --region ${AWS::Region}
