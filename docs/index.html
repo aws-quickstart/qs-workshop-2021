@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Quick Start enablement workshop</title>
+<title>Quick Start customization workshop</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -797,7 +797,11 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_architecture">Architecture</a></li>
 </ul>
 </li>
-<li><a href="#_cloud9_ide">Cloud9 IDE</a></li>
+<li><a href="#_cloud9_ide">Cloud9 IDE</a>
+<ul class="sectlevel2">
+<li><a href="#_create_github_personal_access_token">Create GitHub personal access token</a></li>
+</ul>
+</li>
 <li><a href="#_forking_github_repository">Forking GitHub Repository</a></li>
 <li><a href="#_cloning_github_repository">Cloning GitHub Repository</a>
 <ul class="sectlevel2">
@@ -828,7 +832,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_quick_start_enablement_workshop" class="discrete text-center">Quick Start enablement workshop</h2>
+<h2 id="_quick_start_customization_workshop" class="discrete text-center">Quick Start customization workshop</h2>
 <div class="paragraph text-left">
 <p>In this workshop, you will learn about the AWS Quick Start program, how to modify existing Quick Starts to fit your unique use cases, and deploy modified Quick Starts into your (or your customer&#8217;s) AWS account from your own Simple Storage Service (S3) bucket.</p>
 </div>
@@ -1012,6 +1016,76 @@ p.footer-text a{color:#d7d8d8}
 <div class="paragraph">
 <p>The Cloud9 IDE will be created after a few minutes.</p>
 </div>
+<div class="sect2">
+<h3 id="_create_github_personal_access_token">Create GitHub personal access token</h3>
+<div class="paragraph">
+<p>You will need to create a GitHub personal access token and add it to Cloud9.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From GitHub, click <strong>Settings</strong></p>
+</li>
+</ol>
+</div>
+<div id="token1" class="imageblock">
+<div class="content">
+<img src="images/token1.png" alt="token" width="25%" height="25%">
+</div>
+<div class="title">Figure 3. GitHub settings</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Select <strong>Developer settings</strong>, then <strong>Personal access tokens</strong></p>
+</li>
+</ol>
+</div>
+<div id="token2" class="imageblock">
+<div class="content">
+<img src="images/token2.png" alt="token" width="25%" height="25%">
+</div>
+<div class="title">Figure 4. Developer settings</div>
+</div>
+<div id="token3" class="imageblock">
+<div class="content">
+<img src="images/token3.png" alt="token" width="25%" height="25%">
+</div>
+<div class="title">Figure 5. Personal access tokens</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Click <strong>Generate new token</strong>, give the token a name, and select <strong>repo</strong> for permissions</p>
+</li>
+</ol>
+</div>
+<div id="token4" class="imageblock">
+<div class="content">
+<img src="images/token4.png" alt="token" width="25%" height="25%">
+</div>
+<div class="title">Figure 6. Generate new token</div>
+</div>
+<div id="token5" class="imageblock">
+<div class="content">
+<img src="images/token5.gif" alt="token" width="100%" height="100%">
+</div>
+<div class="title">Figure 7. Token permissions</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Copy the token and save it in a text editor. This will be used when cloning a repository later in this workshop.</p>
+</li>
+</ol>
+</div>
+<div id="token6" class="imageblock">
+<div class="content">
+<img src="images/token6.png" alt="token" width="100%" height="100%">
+</div>
+<div class="title">Figure 8. Copy token</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1037,7 +1111,7 @@ p.footer-text a{color:#d7d8d8}
 <div class="content">
 <img src="images/image2.png" alt="fork" width="25%" height="25%">
 </div>
-<div class="title">Figure 3. Forking a GitHub repository</div>
+<div class="title">Figure 9. Forking a GitHub repository</div>
 </div>
 <div class="paragraph">
 <p>That&#8217;s it! A copy of the repository should now be hosted in your GitHub account.</p>
@@ -1061,7 +1135,7 @@ p.footer-text a{color:#d7d8d8}
 <div class="content">
 <img src="images/image4.png" alt="Clone" width="50%" height="50%">
 </div>
-<div class="title">Figure 4. Obtaining the clone URL</div>
+<div class="title">Figure 10. Obtaining the clone URL</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="2">
@@ -1077,7 +1151,7 @@ p.footer-text a{color:#d7d8d8}
 <div class="content">
 <img src="images/image3.png" alt="Clone" width="75%" height="75%">
 </div>
-<div class="title">Figure 5. The Cloud9 Welcome tab</div>
+<div class="title">Figure 11. The Cloud9 Welcome tab</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="4">
@@ -1090,7 +1164,7 @@ p.footer-text a{color:#d7d8d8}
 <div class="content">
 <img src="images/image5.png" alt="Clone" width="50%" height="50%">
 </div>
-<div class="title">Figure 6. The Cloud9 Welcome tab</div>
+<div class="title">Figure 12. The Cloud9 Welcome tab</div>
 </div>
 <div class="paragraph">
 <p>You should see the following output:</p>
@@ -1114,7 +1188,7 @@ Unpacking objects: 100% (17/17), done.</pre>
 <div class="content">
 <img src="images/submodules.png" alt="submodules" width="25%" height="25%">
 </div>
-<div class="title">Figure 7. Submodule example</div>
+<div class="title">Figure 13. Submodule example</div>
 </div>
 <div class="paragraph">
 <p>When you clone a repository, the contents of its submodules are not included by default, so you will need to download the submodules manually.</p>
@@ -1133,7 +1207,7 @@ Unpacking objects: 100% (17/17), done.</pre>
 <div class="content">
 <img src="images/image6.png" alt="submodules" width="100%" height="100%">
 </div>
-<div class="title">Figure 8. Submodule update</div>
+<div class="title">Figure 14. Submodule update</div>
 </div>
 <div class="paragraph">
 <p>You will see that three submodules have now been downloaded: <strong>quickstart-aws-vpc</strong>, <strong>quickstart-linux-bastion</strong>, and <strong>quickstart-microsoft-rdgateway</strong>. These are other Quick Starts in the <strong>aws-quickstart</strong> organization, the contents of which have now been downloaded to your IDE. If you expand the folder view on the left-hand side you should see them.</p>
@@ -1142,7 +1216,7 @@ Unpacking objects: 100% (17/17), done.</pre>
 <div class="content">
 <img src="images/image7.png" alt="submodules" width="50%" height="50%">
 </div>
-<div class="title">Figure 9. Expanded folder view</div>
+<div class="title">Figure 15. Expanded folder view</div>
 </div>
 </div>
 </div>
@@ -1169,7 +1243,7 @@ Unpacking objects: 100% (17/17), done.</pre>
 <div class="content">
 <img src="images/image9.png" alt="taskcat" width="25%" height="25%">
 </div>
-<div class="title">Figure 10. EC2 Key Pairs</div>
+<div class="title">Figure 16. EC2 Key Pairs</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="3">
@@ -1185,7 +1259,7 @@ Unpacking objects: 100% (17/17), done.</pre>
 <div class="content">
 <img src="images/image10.png" alt="taskcat" width="75%" height="75%">
 </div>
-<div class="title">Figure 11. Creating a Key Pair</div>
+<div class="title">Figure 17. Creating a Key Pair</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="5">
@@ -1298,7 +1372,7 @@ tests:
 <div class="content">
 <img src="images/image8.png" alt="modification" width="50%" height="50%">
 </div>
-<div class="title">Figure 12. Expanded folder view</div>
+<div class="title">Figure 18. Expanded folder view</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="2">

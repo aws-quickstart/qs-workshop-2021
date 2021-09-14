@@ -16,3 +16,45 @@ image::../images/image1.png[cloud9,width=75%,height=75%]
 8. Click *Create environment*
 
 The Cloud9 IDE will be created after a few minutes.
+
+=== Create GitHub personal access token
+
+You will need to create a GitHub personal access token and add it to Cloud9.
+
+1. From GitHub, click *Settings*
+
+[#token1]
+.GitHub settings
+image::../images/token1.png[token,width=25%,height=25%]
+
+[start=2]
+
+2. Select *Developer settings*, then *Personal access tokens*
+
+[#token2]
+.Developer settings
+image::../images/token2.png[token,width=25%,height=25%]
+
+[#token3]
+.Personal access tokens
+image::../images/token3.png[token,width=25%,height=25%]
+
+[start=3]
+
+3. Click *Generate new token*, give the token a name, and select *repo* for permissions
+
+[#token4]
+.Generate new token
+image::../images/token4.png[token,width=25%,height=25%]
+
+[#token5]
+.Token permissions
+image::../images/token5.gif[token,width=100%,height=100%]
+
+[start=4]
+
+4. Copy the token and save it in a text editor. This will be used when cloning a repository later in this workshop.
+
+[#token6]
+.Copy token
+image::../images/token6.png[token,width=100%,height=100%]
