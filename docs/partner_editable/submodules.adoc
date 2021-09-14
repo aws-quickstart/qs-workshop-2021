@@ -6,7 +6,7 @@ image::../images/submodules.png[submodules,width=25%,height=25%]
 
 When you clone a repository, the contents of its submodules are not included by default, so you will need to download the submodules manually.
 
-1. From the terminal, navigate to the cloned repository with the command *_cd qs-workshop_2021_*
+1. From the terminal, navigate to the cloned repository with the command *_cd qs-workshop-2021_*
 2. Download the contents of the submodules with the command *_git submodule update --init --remote_*
 
 [#submodules2]
