@@ -41,6 +41,11 @@ general:
 4. Hold CTRL+X and then press Y and press ENTER to save the file
 5. Test the forked repository's CloudFormation templates by running *_taskcat test run -l_*
 
+[NOTE]
+====
+When running taskcat in Cloud9, you may encounter timeout issues. This is because the Cloud9 environment uses temporary access tokens to interact with AWS APIs. To avoid this issue, use the *aws configure* command in your Cloud9 terminal to configure an AWS Access Key ID and AWS Secret Access Key.
+====
+
 TaskCat uses the values in the *.taskcat.yml* file to determine which template(s) to launch, into which Regions to launch them, and what parameter values to use. The test should take about 20 minutes.
 
 .TaskCat parameter file

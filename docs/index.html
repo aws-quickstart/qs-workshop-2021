@@ -1308,6 +1308,20 @@ Unpacking objects: 100% (17/17), done.</pre>
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When running taskcat in Cloud9, you may encounter timeout issues. This is because the Cloud9 environment uses temporary access tokens to interact with AWS APIs. To avoid this issue, use the <strong>aws configure</strong> command in your Cloud9 terminal to configure an AWS Access Key ID and AWS Secret Access Key.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>TaskCat uses the values in the <strong>.taskcat.yml</strong> file to determine which template(s) to launch, into which Regions to launch them, and what parameter values to use. The test should take about 20 minutes.</p>
 </div>
@@ -1694,7 +1708,7 @@ tests:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>From the root of the repository in your IDE, add a <em>commit</em> message that describes the change that was made. If support for T3 EC2 instances was added as in the example above, run the command <strong><em>git commit -a -m "Automating HTTPS installation and updating AMIs</em></strong></p>
+<p>From the root of the repository in your IDE, add a <em>commit</em> message that describes the change that was made. If support for T3 EC2 instances was added as in the example above, run the command <strong><em>git commit -a -m "Automating HTTPS installation and updating AMIs"</em></strong></p>
 </li>
 <li>
 <p>Run <strong><em>git push</em></strong> to <em>push</em> the changes up to the GitHub repository.</p>
